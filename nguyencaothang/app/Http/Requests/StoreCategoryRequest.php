@@ -22,16 +22,16 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:6'
+            'name' => 'required|min:6' //required là nếu chưa nhập vào form mà bấm submit thì nó báo lỗi, min:6 là ký tự ngắn nhất là 6 nếu nhỏ hơn 6 thì báo lỗi
         ];
     }
 
-    public function messages(): array
+    //Phần hiển thị thông báo báo lỗi
+    public function messages(): array //messages sẽ được dùng ở errỏ message ở admin.category.index
     {
         return [
-            'name.required' => 'Tên danh mục không được để trống !',
+            'name.required' => 'Tên danh mục không để trống!',
             'name.min' => 'Tên danh mục ít nhất 6 ký tự'
         ];
     }
-
 }

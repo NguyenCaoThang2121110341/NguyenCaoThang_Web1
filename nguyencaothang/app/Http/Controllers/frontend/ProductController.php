@@ -9,12 +9,10 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view("frontend.product");    
+        return view("frontend.Product.product");
     }
-
-    public function detail($slug){
-        return view("frontend.product_detail");
+    public function product_detail($slug)
+    {
+        return view("frontend.ProductDetail.product_detail");
     }
-
-
 }

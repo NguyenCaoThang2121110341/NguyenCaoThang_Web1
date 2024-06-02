@@ -1,0 +1,17 @@
+   .map-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    .map-container {
+        width: 100%;
+        max-width: 600px; 
+    }
+
+    iframe {
+        width: 100%;
+        height: 450px; 
+        border: 0;
+    }

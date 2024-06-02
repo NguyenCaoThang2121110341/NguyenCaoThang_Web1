@@ -4,32 +4,49 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Topic;
+use illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StorePostRequest;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
+        $list = Post::where('status', '!=', 0)
+            ->select('post.id', 'post.topic_id', 'post.title', 'post.slug','post.detail','post.image','post.type', 'post.description')
+            ->orderBy('post.created_at', 'desc')
+            ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Lấy danh sách topic
+        $topics = Topic::select('topic.id', 'topic.name')->get();
+        return view("backend.post.index", compact("list", "topics"));   
+    } 
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        $post = new Post();
+        $post->title = $request->title;
+        
+        $post->topic_id = $request->topic_id;
+        $post->slug = Str::of($request->title)->slug('-');
+        $post->description = $request->description;
+        $post->detail = $request->detail;
+        $post->type = $request->type;
+        $post->created_at = date('Y-m-d H:i:s');
+        $post->created_by = Auth::id() ?? 1; // Default to 1 if Auth::id() is null
+        $post->status = $request->status;
+        $post->updated_at = now(); // Sử dụng hàm now() để lấy thời gian hiện tại
+
+        $post->save();
+
+        return redirect()->route('admin.post.index');
     }
+
 
     /**
      * Display the specified resource.

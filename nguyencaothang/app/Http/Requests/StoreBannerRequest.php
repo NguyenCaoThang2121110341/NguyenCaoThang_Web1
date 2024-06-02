@@ -14,7 +14,7 @@ class StoreBannerRequest extends FormRequest
         return true;
     }
 
-    /**
+      /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
@@ -22,16 +22,16 @@ class StoreBannerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:6'
+            'name' => 'required|min:6' //required là nếu chưa nhập vào form mà bấm submit thì nó báo lỗi, min:6 là ký tự ngắn nhất là 6 nếu nhỏ hơn 6 thì báo lỗi
         ];
     }
 
-    public function messages(): array
+    //Phần hiển thị thông báo báo lỗi
+    public function messages(): array //messages sẽ được dùng ở errỏ message ở admin.banner.index
     {
         return [
-            'name.required' => 'Tên banner không được để trống !',
-            'name.min' => 'Tên bnnner ít nhất 6 ký tự'
+            'name.required' => 'Tên danh mục không để trống!',
+            'name.min' => 'Tên danh mục ít nhất 6 ký tự'
         ];
     }
-
 }
